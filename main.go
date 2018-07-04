@@ -57,7 +57,8 @@ func recvUDPMsg(){
 
         log.Println(string(buf[0:n]), raddr)
         if n == 13 {
-           devices[string(buf[0:n])] = raddr.IP.String()
+           // devices[string(buf[0:n])] = raddr.IP.String()
+           devices[raddr.IP.String()] = string(buf[0:n])
         }
     }
 }
@@ -101,7 +102,7 @@ func webServer() {
         }
         sort.Strings(keys)
         for _, k := range keys {
-            buffer.WriteString(fmt.Sprintf("<a href='http://%s'>%s</a> %s<br/>", devices[k], k, devices[k]))
+            buffer.WriteString(fmt.Sprintf("<a href='http://%s'>%s</a> %s<br/>", k, devices[k], k))
         }
         ctx.Writef("%s", buffer.String())
     })
@@ -125,4 +126,7 @@ func main() {
     go sendUDPMsg(ip)
     go openBrowser()
     webServer()
+    /*for {
+        time.Sleep(1000 * time.Millisecond)
+    }*/
 }
