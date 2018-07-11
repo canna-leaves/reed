@@ -6,21 +6,21 @@ import (
     "log"
     "fmt"
     "os"
-    "runtime"
-    "os/exec"
-    "errors"
-    "bytes"
-    "github.com/kataras/iris"
-    "sort"
+    // "runtime"
+    // "os/exec"
+    // "errors"
+    // "bytes"
+    // "github.com/kataras/iris"
+    // "sort"
 )
 
-var commands = map[string]string {
+/*var commands = map[string]string {
     "windows": "cmd",
-}
+}*/
 
 var devices = map[string]string {}
 
-func Open(uri string) error {
+/*func Open(uri string) error {
     _, ok := commands[runtime.GOOS]
     if !ok {
         return errors.New("don't know how to open")
@@ -28,7 +28,7 @@ func Open(uri string) error {
 
     cmd := exec.Command("cmd", "/c", "start", uri)
     return cmd.Start()
-}
+}*/
 
 func init() {
     //log.SetFlags(log.Ldate | log.Lmicroseconds/* | log.Lshortfile*/)
@@ -91,7 +91,7 @@ func sendUDPMsg(ip string) {
     }
 }
 
-func webServer() {
+/*func webServer() {
     app := iris.New()
     //app.StaticWeb("/static", "./assets")
     app.Get("/", func(ctx iris.Context) {
@@ -107,15 +107,15 @@ func webServer() {
         ctx.Writef("%s", buffer.String())
     })
     app.Run(iris.Addr(":10086"))
-}
+}*/
 
-func openBrowser() {
+/*func openBrowser() {
     time.Sleep(1000 * time.Millisecond)
     err := Open("http://localhost:10086")
     if err != nil {
         log.Println(err)
     }
-}
+}*/
 
 func main() {
     ip := "0.0.0.0"
@@ -124,9 +124,9 @@ func main() {
 	}
     go recvUDPMsg()
     go sendUDPMsg(ip)
-    go openBrowser()
-    webServer()
-    /*for {
+    // go openBrowser()
+    // webServer()
+    for {
         time.Sleep(1000 * time.Millisecond)
-    }*/
+    }
 }
